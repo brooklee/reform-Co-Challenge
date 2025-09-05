@@ -1,42 +1,205 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: 'Sohne';
+  src: url('/fonts/sohne/WOFF2/soehne-buch.woff2') format('woff2'),
+       url('/fonts/sohne/OTF/Söhne-Buch.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@font-face {
+  font-family: 'Sohne';
+  src: url('/fonts/sohne/WOFF2/soehne-buch-kursiv.woff2') format('woff2'),
+       url('/fonts/sohne/OTF/Söhne-BuchKursiv.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sohne';
+  src: url('/fonts/sohne/WOFF2/soehne-halbfett.woff2') format('woff2'),
+       url('/fonts/sohne/OTF/Söhne-Halbfett.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sohne';
+  src: url('/fonts/sohne/WOFF2/soehne-halbfett-kursiv.woff2') format('woff2'),
+       url('/fonts/sohne/OTF/Söhne-HalbfettKursiv.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sohne';
+  src: url('/fonts/sohne/WOFF2/soehne-fett.woff2') format('woff2'),
+       url('/fonts/sohne/OTF/Söhne-Fett.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sohne';
+  src: url('/fonts/sohne/WOFF2/soehne-fett-kursiv.woff2') format('woff2'),
+       url('/fonts/sohne/OTF/Söhne-FettKursiv.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --black-100: #112C2E;
+  --black-200: #081E13;
+  --off-white: #FBFAF6;
+  --white: #FFFFFF;
+
+  --green-100: #CCDDC7;
+  --green-200: #00B684;
+  --green-300: #6E9E8F;
+  --green-400: #30715D;
+  --green-500: #153E2A;
+
+  --mobile-max: 500px;
+  --tablet-min: 501px;
+  --tablet-max: 1024px;
+  --desktop-min: 1025px;
+  --desktop-max: 1440px;
+  --full: 1441px;
+  --desktop-width: 1440px;
+
+  /* default scale unit: multiply any unit px by var(--su) eg: 'calc(112 * var(--su));' */
+  --su: calc(100vw / 1440);
+
+  --columns: 8;
+  --margin: calc(32 * var(--su));
+  --gutter: calc(1 * var(--su));
+
+  /* Linear scaling per CSS-Tricks method */
+  /* https://css-tricks.com/how-to-get-a-pixel-perfect-linearly-scaled-ui/ */
+  --ideal-width: 1440; /* unitless ideal design width */
+  --min-viewport: 360px;
+  --max-viewport: 1440px;
+  --vw-clamped: clamp(var(--min-viewport), 100vw, var(--max-viewport));
+  --scale: calc(var(--vw-clamped) / var(--ideal-width));
+}
+
+/* Scaling units for mobile, tablet, desktop and fullwidth */
+/* MOBILE */
+@media (max-width: 500px) {
+  :root { 
+    --su: calc(100vw / 375);
+    --columns: 1;
+    --margin: calc(24 * var(--su));
+    --gutter: calc(20 * var(--su)); 
   }
 }
+
+/* TABLET */
+@media (min-width: 501px) and (max-width: 1024px) {
+  :root { 
+    --su: calc(100vw / 1024); 
+    --columns: 6;
+    --margin: calc(32 * var(--su));
+    --gutter: calc(4 * var(--su));
+  }
+}
+
+/* DESKTOP */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  :root { 
+    --su: calc(100vw / 1440); 
+    --columns: 8;
+    --margin: calc(32 * var(--su));
+    --gutter: calc(1 * var(--su));
+  }
+}
+
+/* FULLWIDTH */
+@media (min-width: 1441px) {
+  :root { --su: 1px; } 
+  .page {
+    width: var(--desktop-width);
+    margin-inline: auto;
+  }
+  .fullwidth {
+    padding-inline: calc((100vw - var(--desktop-width)) / 2);
+  }
+}
+
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  background-color: var(--off-white);
+  color: var(--black-100);
+  font-family: 'Sohne', sans-serif;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  column-gap: var(--gutter);
+  padding-inline: var(--margin);
+  /* Keep consistent with design widths */
+  max-width: var(--desktop-width);
+  margin-inline: auto;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Sohne', sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+h1 {
+  font-weight: 400; /* Buch */
+  letter-spacing: -3%;
+  line-height: 120%;
+  font-size: calc(112 * var(--scale));
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+h5 {
+  font-weight: 400; /* Buch */
+  letter-spacing: -3%;
+  line-height: 120%;
+  font-size: calc(48 * var(--scale));
+}
+
+.title {
+  font-weight: 400; /* Buch */
+  letter-spacing: 10%;
+  line-height: 120%;
+  font-size: calc(12 * var(--scale));
+}
+
+body-xl, body-l, body-reg, body-s, body-xs, body-xxs {
+  font-weight: 400; /* Buch */
+  letter-spacing: -3%;
+  line-height: 140%;
+}
+
+body-xl {
+  font-size: calc(28 * var(--scale));
+}
+
+body-l {
+  font-size: calc(20 * var(--scale));
+}
+
+body-reg {    
+  font-size: calc(16 * var(--scale));
+}
+
+body-s {
+  font-size: calc(12 * var(--scale));
+}
+
+body-xs {
+  font-size: calc(10 * var(--scale));
+}
+
+body-xxs {
+  font-size: calc(12 * var(--scale));
 }
