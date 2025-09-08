@@ -5,22 +5,22 @@
   padding: 0 48px; /* creates left/right peek space */
   box-sizing: border-box;
   overflow: hidden;
+  padding-top: 16px; /* padding for the pulse effect will want to make this dynamic */
+  padding-bottom: 16px; 
 }
 
 .track {
   display: flex;
   align-items: center;
-  gap: 16px; /* keep in sync with GAP_PX in TS */
+  gap: 55px; /* keep in sync with GAP_PX in TS */
+  will-change: transform;
 }
 
 .slideWrapper {
   flex: 0 0 calc(100% - 96px); /* visible width minus left/right padding to show peek */
-  max-width: 560px;
-  aspect-ratio: 16 / 9;
+  max-width: 493px;
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  background: #f6f7f9;
+  will-change: scale;
 }
 
 .slide {
@@ -30,4 +30,5 @@
   display: block;
   user-select: none;
   pointer-events: none;
+  will-change: transform;
 }

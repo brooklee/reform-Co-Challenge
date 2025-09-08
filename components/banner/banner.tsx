@@ -9,10 +9,13 @@ export function Banner() {
             <h1>Health Insurance that <span>dosen't get in the way.</span></h1>
         </div>
         <div className={styles.bannerLeft}>
+            <div className={styles.bannerLeftInfo}>
             <p>
                 Join hundreds of businesses who trust us to offer health insurance that works the way it should: affordable coverage that puts employees and their doctors in the driving seat.
             </p>
-            <Button label="Get a Custom Quote Today" /> 
+            <Button label="Get a Custom Quote Today" />
+            </div>
+             
         </div>
         <div className={styles.bannerRight}>
             <InsuranceCard 

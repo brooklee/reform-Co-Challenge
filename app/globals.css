@@ -64,6 +64,8 @@
   --green-400: #30715D;
   --green-500: #153E2A;
 
+  --edge-space: 32px; /* spacing for the edge of the screen */
+
   --mobile-max: 500px;
   --tablet-min: 501px;
   --tablet-max: 1024px;
