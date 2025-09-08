@@ -57,8 +57,10 @@ export function Button({ label }: ButtonProps) {
       <div className={styles.buttonContainer} ref={containerRef} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
         <button ref={buttonRef} className={styles.button}>{label}</button>
         <svg ref={svgRef} className={styles.arrow} width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={handleSVGClick}>
-          <path ref={arrowPathRef} d="M25.2486 32.5L31.4986 26.25M31.4986 26.25L25.2486 20M31.4986 26.25H19"/> // arrow 
-          <path d="M11.4227 5.6875C15.5263 2.73737 20.5603 1 26 1C39.8071 1 51 12.1929 51 26C51 39.8071 39.8071 51 26 51C12.1929 51 1 39.8071 1 26C1 23.8419 1.27346 21.7476 1.78761 19.75" /> // circle
+          {/* arrow */}
+          <path ref={arrowPathRef} d="M25.2486 32.5L31.4986 26.25M31.4986 26.25L25.2486 20M31.4986 26.25H19"/> 
+          {/*  circle */}
+          <path d="M11.4227 5.6875C15.5263 2.73737 20.5603 1 26 1C39.8071 1 51 12.1929 51 26C51 39.8071 39.8071 51 26 51C12.1929 51 1 39.8071 1 26C1 23.8419 1.27346 21.7476 1.78761 19.75" />
         </svg>
       </div>
     );

@@ -13,7 +13,7 @@
   padding: 10px 20px;
   height: 52px;
   border-radius: 900px;
-  border: 1px solid var(--green-400);
+  border: .75px solid var(--green-400);
   cursor: pointer;
   font-size: 16px;
   font-weight: 400;
@@ -31,7 +31,7 @@
 
 .arrow path {
   stroke: var(--green-400);
-  stroke-width: 1;
+  stroke-width: .75px;
   stroke-linecap: round;
   shape-rendering: auto;
 } 

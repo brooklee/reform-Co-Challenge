@@ -1,4 +1,4 @@
-import { Button } from "../button/button";
+import { Button } from "../button";
 import { InsuranceCard } from "../insuranceCard";
 import styles from "./banner.module.css";
 
@@ -6,7 +6,7 @@ export function Banner() {
   return (
     <div className="grid">
         <div className={styles.banner}>
-            <h1>Health Insurance that <span>dosen't get in the way.</span></h1>
+            <h1>Health Insurance that <span>dosen&apos;t get in the way.</span></h1>
         </div>
         <div className={styles.bannerLeft}>
             <div className={styles.bannerLeftInfo}>

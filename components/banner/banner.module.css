@@ -9,7 +9,7 @@
 .banner > h1 {
   color: var(--green-500);
   text-align: center;
-    font-size: calc(104 * var(--scale)); /* slight adjustment to make it match the design asset */
+  /* font-size: calc(104 * var(--scale));  slight adjustment to make it match the design asset */
 }
 
 .banner > h1 > span {

@@ -70,12 +70,12 @@
   --tablet-min: 501px;
   --tablet-max: 1024px;
   --desktop-min: 1025px;
-  --desktop-max: 1440px;
+  --desktop-max: 1490px;
   --full: 1441px;
-  --desktop-width: 1440px;
+  --desktop-width: 1490px;
 
   /* default scale unit: multiply any unit px by var(--su) eg: 'calc(112 * var(--su));' */
-  --su: calc(100vw / 1440);
+  --su: calc(100vw / 1490);
 
   --columns: 8;
   --margin: calc(32 * var(--su));
@@ -83,9 +83,9 @@
 
   /* Linear scaling per CSS-Tricks method */
   /* https://css-tricks.com/how-to-get-a-pixel-perfect-linearly-scaled-ui/ */
-  --ideal-width: 1440; /* unitless ideal design width */
+  --ideal-width: 1490; /* unitless ideal design width */
   --min-viewport: 360px;
-  --max-viewport: 1440px;
+  --max-viewport: 1490px;
   --vw-clamped: clamp(var(--min-viewport), 100vw, var(--max-viewport));
   --scale: calc(var(--vw-clamped) / var(--ideal-width));
 }
@@ -112,9 +112,9 @@
 }
 
 /* DESKTOP */
-@media (min-width: 1025px) and (max-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1490px) {
   :root { 
-    --su: calc(100vw / 1440); 
+    --su: calc(100vw / 1490); 
     --columns: 8;
     --margin: calc(32 * var(--su));
     --gutter: calc(1 * var(--su));
