@@ -1,0 +1,8 @@
+.marquee {
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid #D87906;
+    display: inline-block;
+    color: #D87906;
+}

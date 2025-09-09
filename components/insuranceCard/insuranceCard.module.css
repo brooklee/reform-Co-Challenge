@@ -32,3 +32,14 @@
   pointer-events: none;
   will-change: transform;
 }
+
+/* TABLET */
+@media (min-width: 501px) and (max-width: 1024px) {
+
+    .carousel {
+        max-height: 400px;
+    }
+  .track {
+    flex-direction: column;
+  }
+}

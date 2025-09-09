@@ -14,6 +14,7 @@ export function InsuranceCard({ image }: InsuranceCardProps) {
   const currentIndexRef = useRef<number>(1);
   const stepRef = useRef<number>(0);
   const centerOffsetRef = useRef<number>(0);
+  const isVerticalRef = useRef<boolean>(false);
   const GAP_PX = 55; // keep in sync with CSS `.track { gap: 16px }`
   // Timing controls
   const SLIDE_DURATION = 1.5; // seconds for slide movement
@@ -47,32 +48,62 @@ export function InsuranceCard({ image }: InsuranceCardProps) {
       };
       // calculate the center offset and step
       const measure = () => {
+        const mq = window.matchMedia("(min-width: 501px) and (max-width: 1024px)");
+        isVerticalRef.current = mq.matches;
+
         const firstSlide = trackRef.current?.querySelector(`.${styles.slideWrapper}`) as HTMLDivElement | null;
         if (firstSlide && containerRef.current) {
-          const slideWidth = firstSlide.offsetWidth;
           const style = getComputedStyle(containerRef.current);
-          const paddingLeft = parseFloat(style.paddingLeft || "0");
-          const paddingRight = parseFloat(style.paddingRight || "0");
-          const contentWidth = containerRef.current.clientWidth - paddingLeft - paddingRight;
-          centerOffsetRef.current = (contentWidth - slideWidth) / 2;
-          stepRef.current = slideWidth + GAP_PX;
+
+          if (isVerticalRef.current) {
+            const slideHeight = firstSlide.offsetHeight;
+            const paddingTop = parseFloat(style.paddingTop || "0");
+            const paddingBottom = parseFloat(style.paddingBottom || "0");
+            const contentHeight = containerRef.current.clientHeight - paddingTop - paddingBottom;
+            centerOffsetRef.current = (contentHeight - slideHeight) / 2;
+            stepRef.current = slideHeight + GAP_PX;
+          } else {
+            const slideWidth = firstSlide.offsetWidth;
+            const paddingLeft = parseFloat(style.paddingLeft || "0");
+            const paddingRight = parseFloat(style.paddingRight || "0");
+            const contentWidth = containerRef.current.clientWidth - paddingLeft - paddingRight;
+            centerOffsetRef.current = (contentWidth - slideWidth) / 2;
+            stepRef.current = slideWidth + GAP_PX;
+          }
+        }
+      };
+
+      const setPosition = (index: number) => {
+        if (!trackRef.current) return;
+        const value = centerOffsetRef.current - stepRef.current * index;
+        if (isVerticalRef.current) {
+          gsap.set(trackRef.current, { y: value, x: 0 });
+        } else {
+          gsap.set(trackRef.current, { x: value, y: 0 });
         }
       };
 
       measure();
 
       let resizeObserver: ResizeObserver | undefined;
+      const mq = window.matchMedia("(min-width: 501px) and (max-width: 1024px)");
+      const onMediaChange = () => {
+        measure();
+        setPosition(currentIndexRef.current);
+        pulseActive();
+      };
+      mq.addEventListener?.("change", onMediaChange);
       if (containerRef.current) {
         resizeObserver = new ResizeObserver(() => {
           measure();
-          gsap.set(trackRef.current, { x: centerOffsetRef.current - stepRef.current * currentIndexRef.current });
+          setPosition(currentIndexRef.current);
           pulseActive();
         });
         resizeObserver.observe(containerRef.current);
       }
 
       currentIndexRef.current = imagesExtended.length > 1 ? 1 : 0;
-      gsap.set(trackRef.current, { x: centerOffsetRef.current - stepRef.current * currentIndexRef.current });
+      setPosition(currentIndexRef.current);
       pulseActive();
 
       let tween: gsap.core.Tween | null = null;
@@ -81,8 +112,12 @@ export function InsuranceCard({ image }: InsuranceCardProps) {
       const goNext = () => {
         if (!trackRef.current) return;
         const nextIndex = currentIndexRef.current + 1;
+        const toValue = centerOffsetRef.current - stepRef.current * nextIndex;
+        const vars = isVerticalRef.current
+          ? { y: toValue, x: 0 }
+          : { x: toValue, y: 0 };
         tween = gsap.to(trackRef.current, {
-          x: centerOffsetRef.current - stepRef.current * nextIndex,
+          ...vars,
           duration: SLIDE_DURATION,
           ease: "power2.inOut",
           onComplete: () => {
@@ -90,7 +125,7 @@ export function InsuranceCard({ image }: InsuranceCardProps) {
             // if at last clone, jump back to the first real slide
             if (currentIndexRef.current === imagesExtended.length - 1) {
               currentIndexRef.current = 1;
-              gsap.set(trackRef.current, { x: centerOffsetRef.current - stepRef.current * currentIndexRef.current });
+              setPosition(currentIndexRef.current);
             }
             pulseActive();
             delayed = gsap.delayedCall(PAUSE_BETWEEN, goNext);
@@ -106,6 +141,7 @@ export function InsuranceCard({ image }: InsuranceCardProps) {
         tween?.kill();
         delayed?.kill();
         resizeObserver?.disconnect();
+        mq.removeEventListener?.("change", onMediaChange);
       };
     }, containerRef);
 
