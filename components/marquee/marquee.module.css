@@ -1,8 +1,31 @@
-.marquee {
+.marqueeWrapper {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    border: 1px solid #D87906;
-    display: inline-block;
+    border: 1px solid var(--green-100);
+    border-radius: 12px;
     color: #D87906;
+    height: 79px;
+    width: 662px;
+    box-sizing: border-box;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.marquee {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;  
+    height: 100%;
+    width: max-content;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+.track {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-right: 30px; /* ensures consistent spacing at the seam */
 }

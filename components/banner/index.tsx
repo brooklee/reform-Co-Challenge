@@ -7,7 +7,7 @@ export function Banner() {
   return (
     <div className="grid">
         <div className={styles.banner}>
-            <h1>Health Insurance that <span className={styles.bannerSpan}>dosen&apos;t get in<Marquee /> the way.</span></h1>
+            <h1>Health Insurance that <span className={styles.bannerSpan}>dosen&apos;t get in <Marquee /> the way.</span></h1>
         </div>
         <div className={styles.bannerLeft}>
             <div className={styles.bannerLeftInfo}>
