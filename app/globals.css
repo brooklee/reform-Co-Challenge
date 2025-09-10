@@ -177,32 +177,32 @@ h5 {
   text-transform: uppercase;
 }
 
-body-xl, body-l, body-reg, body-s, body-xs, body-xxs {
+.body-xl, .body-l, .body-reg, .body-s, .body-xs, .body-xxs {
   font-weight: 400; /* Buch */
   letter-spacing: -3%;
   line-height: 140%;
 }
 
-body-xl {
+.body-xl {
   font-size: calc(28 * var(--scale));
 }
 
-body-l {
+.body-l {
   font-size: calc(20 * var(--scale));
 }
 
-body-reg {    
+.body-reg {    
   font-size: calc(16 * var(--scale));
 }
 
-body-s {
+.body-s {
   font-size: calc(12 * var(--scale));
 }
 
-body-xs {
+.body-xs {
   font-size: calc(10 * var(--scale));
 }
 
-body-xxs {
+.body-xxs {
   font-size: calc(12 * var(--scale));
 }

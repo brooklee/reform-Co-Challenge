@@ -6,7 +6,7 @@
     border-radius: 12px;
     color: #D87906;
     height: 79px;
-    width: 662px;
+    width: calc(662 * var(--scale));
     box-sizing: border-box;
     overflow: hidden;
     vertical-align: middle;

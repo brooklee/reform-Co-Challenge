@@ -54,9 +54,9 @@ export function Button({ label }: ButtonProps) {
   }, []);
 
   return (
-      <div className={styles.buttonContainer} ref={containerRef} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-        <button ref={buttonRef} className={styles.button}>{label}</button>
-        <svg ref={svgRef} className={styles.arrow} width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={handleSVGClick}>
+      <div className={styles.buttonContainer} ref={containerRef} onMouseEnter={handleEnter} onMouseLeave={handleLeave} onClick={handleSVGClick}>
+        <button ref={buttonRef} className={styles.button + " body-s"}>{label}</button>
+        <svg ref={svgRef} className={styles.arrow} width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" >
           {/* arrow */}
           <path ref={arrowPathRef} d="M25.2486 32.5L31.4986 26.25M31.4986 26.25L25.2486 20M31.4986 26.25H19"/> 
           {/*  circle */}

@@ -10,16 +10,14 @@
 .button {
   background-color: var(--off-white);
   color: var(--green-400);
-  padding: 10px 20px;
-  height: 52px;
+  padding: calc(10 * var(--scale)) calc(20 * var(--scale));
+  min-height: 52px;
   border-radius: 900px;
   border: .75px solid var(--green-400);
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 1px;
   transition: all 0.3s ease;
   z-index: 1;
+  font-size: 12px;
 }
 
 .arrow {
@@ -36,3 +34,14 @@
   shape-rendering: auto;
 } 
 
+/* TABLET */
+@media (min-width: 501px) and (max-width: 1024px) {
+
+
+}
+
+/* MOBILE */
+@media (max-width: 500px) {
+
+
+}

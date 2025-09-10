@@ -37,7 +37,9 @@
 @media (min-width: 501px) and (max-width: 1024px) {
 
     .carousel {
-        max-height: 400px;
+        /* max-height: 600px; */
+        height: 600px;
+        /* height: calc(600px * var(--scale));  */
     }
   .track {
     flex-direction: column;

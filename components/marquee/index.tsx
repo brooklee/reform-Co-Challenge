@@ -6,6 +6,7 @@ import { Illo } from "../icons/Illo";
 import styles from "./marquee.module.css";
 
 export function Marquee() {
+    const wrapperRef = useRef<HTMLDivElement | null>(null);
     const marqueeRef = useRef<HTMLDivElement | null>(null);
     const track1Ref = useRef<HTMLDivElement | null>(null);
     const track2Ref = useRef<HTMLDivElement | null>(null);
@@ -14,8 +15,9 @@ export function Marquee() {
         if (!marqueeRef.current || !track1Ref.current || !track2Ref.current) return;
 
         let ctx = gsap.context(() => {
-            const speedPxPerSecond = 120; // adjust speed
+            const speedPxPerSecond = 120; //speed of sliding 
             let tween: gsap.core.Tween | null = null;
+            let shrinkTl: gsap.core.Timeline | null = null;
 
             function setupAndAnimate() {
                 const distance = track1Ref.current!.offsetWidth;
@@ -43,6 +45,29 @@ export function Marquee() {
 
             setupAndAnimate();
 
+            // shrink and collapse width so surrounding text closes during the animation
+            if (wrapperRef.current) {
+                shrinkTl = gsap.timeline({ delay: 2 });
+                shrinkTl
+                    // .to(wrapperRef.current, {
+                    //     width: 0, // TODO: animates text too will probably want to figure out a diffrent solution 
+                    //     paddingLeft: 0,
+                    //     paddingRight: 0,
+                    //     borderLeftWidth: 0,
+                    //     borderRightWidth: 0,
+                    //     duration: 1.5,
+                    //     ease: "power3.in"
+                    // }, 0)
+                    .to(wrapperRef.current, {
+                        // scale: 0, //TODO: scale more effecient but it dosent give the same effect shown in the design asset
+                        width: 0,
+                        height: 0,
+                        duration: 1.5,
+                        ease: "power3.in",
+                        transformOrigin: "center center"
+                    }, 0);
+            }
+
             const handleResize = () => {
                 tween?.kill();
                 setupAndAnimate();
@@ -57,6 +82,7 @@ export function Marquee() {
                 window.removeEventListener("resize", handleResize);
                 ro.disconnect();
                 tween?.kill();
+                shrinkTl?.kill();
             };
         }, marqueeRef);
 
@@ -79,7 +105,7 @@ export function Marquee() {
     );
 
     return (
-        <div className={styles.marqueeWrapper + " title"}>
+        <div className={styles.marqueeWrapper + " title"} ref={wrapperRef}>
             <div className={styles.marquee} ref={marqueeRef}>
                 <div className={styles.track} ref={track1Ref}>
                     <Items />
